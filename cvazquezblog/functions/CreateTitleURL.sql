@@ -9,6 +9,4 @@ CREATE
 
 GRANT execute ON FUNCTION cvazquezblog.CreateTitleURL  TO 'blog_func_user'@'localhost';
 GRANT execute ON FUNCTION cvazquezblog.CreateTitleURL  TO 'blog_trig_user'@'localhost';
-GRANT execute ON FUNCTION cvazquezblog.CreateTitleURL  TO 'lucee'@'localhost';
-
-#GRANT execute ON FUNCTION cvazquezblog.PREG_REPLACE TO 'blog_func_user'@'localhost'
+GRANT execute ON FUNCTION cvazquezblog.CreateTitleURL  TO 'nodeuser'@'localhost';
