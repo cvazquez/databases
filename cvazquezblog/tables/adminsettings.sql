@@ -1,30 +1,30 @@
 #DROP TABLE IF EXISTS adminsettings;
 
-CREATE TABLE cvazquezblog.`adminsettings` (
+CREATE TABLE IF NOT EXISTS cvazquezblog.`adminsettings` (
 	`id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`name` varchar(30) NOT NULL DEFAULT '',
 	`value` varchar(255) NOT NULL DEFAULT '',
-	
-	`createdAt` datetime NULL DEFAULT NULL,
-	`createdBy` mediumint unsigned NULL DEFAULT NULL,
-	`updatedAt` datetime NULL DEFAULT NULL,
-	`updatedBy` mediumint unsigned NULL DEFAULT NULL,
+
+	`createdAt` DATETIME NULL DEFAULT NULL,
+	`createdBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`updatedAt` DATETIME NULL DEFAULT NULL,
+	`updatedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
 	`deletedAt` DATETIME NULL DEFAULT NULL,
-	`deletedBy` mediumint unsigned NULL DEFAULT NULL,
-	`timestampAt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-	
+	`deletedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`timestampAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
 	UNIQUE KEY (name, value)
-	
-) comment = "Website settings"
-  ENGINE=INNODB DEFAULT CHARSET=UTF8;
-  
+
+) COMMENT = "Website settings"
+  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
 # See data/secrets for records
 
-INSERT INTO adminsettings (name, value, createdAt) 
+INSERT INTO adminsettings (name, value, createdAt)
 VALUES ("flickrAPIKey", "yourFlickrApiKey", NOW());
 
-INSERT INTO `adminsettings` (`name`, `value`, `createdAt`) 
+INSERT INTO `adminsettings` (`name`, `value`, `createdAt`)
 VALUES ('flikrAPISecret', 'yourFlickrApiSecret', now());
 
-INSERT INTO adminsettings (name, value, createdAt) 
+INSERT INTO adminsettings (name, value, createdAt)
 VALUES ("flickrUserId", "YourFlickrUserId", NOW());

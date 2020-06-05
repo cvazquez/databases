@@ -12,8 +12,8 @@
 # TRUNCATE TABLE cvazquezblog.`entries`;
 
 INSERT INTO cvazquezblog.`entries` (id, title, content, publishAt, deletedAt, createdAt, updatedAt)
-select `blog_id`, `blog_title`, `blog_text`, 
-	IF (`blog_date` = 0, NULL, blog_date), 
+select `blog_id`, `blog_title`, `blog_text`,
+	IF (`blog_date` = 0, NULL, blog_date),
 	CASE `is_active`
 	WHEN 0 THEN
 		IF (`date_updated` IS NOT NULL AND `date_updated` > 0, `date_updated`, NOW())
@@ -30,7 +30,7 @@ WHERE teaser = "";
 
 
 # seriesentries
-# INSERT INTO `blogs_related` (`related_id`, `blog_id`, `order_id`, `date_entered`, `date_updated`, `date_timestamped`) VALUES (1, 1, 2, '2006-10-15 10:40:16', NULL, '2006-10-15 15:20:34');
+# INSERT INTO `blogs_related` (`related_id`, `blog_id`, `order_id`, `date_entered`, `date_updated`, `date_TIMESTAMPed`) VALUES (1, 1, 2, '2006-10-15 10:40:16', NULL, '2006-10-15 15:20:34');
 # TRUNCATE TABLE cvazquezblog.`seriesentries`;
 
 INSERT INTO cvazquezblog.`seriesentries` (seriesId, entryId, sequence, createdAt, updatedAt)
@@ -68,7 +68,7 @@ ORDER BY blog_id, category_id;
 
 # pictures
 INSERT INTO cvazquezblog.entrypictures (id, entryId, title, description, sequence, extension, takenAt, createdAt, deletedAt)
-SELECT `pic_id`, `blog_id`, `pic_title`, `pic_description`, `pic_order`, `pic_ext`, `pic_datetime`, `date_entered`,
+SELECT `pic_id`, `blog_id`, `pic_title`, `pic_description`, `pic_order`, `pic_ext`, `pic_DATETIME`, `date_entered`,
 	CASE `is_active`
 	WHEN 0 THEN
 		IF (`date_updated` IS NOT NULL AND `date_updated` > 0, `date_updated`, NOW())
@@ -76,5 +76,3 @@ SELECT `pic_id`, `blog_id`, `pic_title`, `pic_description`, `pic_order`, `pic_ex
 	END
 FROM cvazquezold.blog_pics
 ORDER BY pic_id;
-
-

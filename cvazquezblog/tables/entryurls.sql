@@ -1,45 +1,45 @@
-CREATE TABLE cvazquezblog.`entryurls` (
+CREATE TABLE IF NOT EXISTS cvazquezblog.`entryurls` (
 	`entryId` MEDIUMINT(9) UNSIGNED NOT NULL,
 	`titleURL` VARCHAR(255) NOT NULL DEFAULT '',
 	PRIMARY KEY (entryId, titleURL),
-	
+
 	`isActive` TINYINT(1) NOT NULL DEFAULT 0,
-	
-	`createdAt` datetime NULL DEFAULT NULL,
-	`createdBy` mediumint unsigned NULL DEFAULT NULL,
-	`updatedAt` datetime NULL DEFAULT NULL,
-	`updatedBy` mediumint unsigned NULL DEFAULT NULL,
+
+	`createdAt` DATETIME NULL DEFAULT NULL,
+	`createdBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`updatedAt` DATETIME NULL DEFAULT NULL,
+	`updatedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
 	`deletedAt` DATETIME NULL DEFAULT NULL,
-	`deletedBy` mediumint unsigned NULL DEFAULT NULL,
-	`timestampAt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  
+	`deletedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`timestampAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
   	FOREIGN KEY (entryId) REFERENCES entries(id),
   	UNIQUE INDEX titleURLIdx (titleURL)
-) comment = "User friendly URLs for an entry"
-  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+) COMMENT = "User friendly URLs for an entry"
+  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
 
 DROP TRIGGER IF EXISTS entryurls_bi;
 
-delimiter |
+DELIMITER |
 CREATE
     DEFINER = blog_trig_user@localhost
     TRIGGER entryurls_bi BEFORE INSERT
     ON entryurls FOR EACH ROW
-	
+
 	BEGIN
 
 	SET NEW.titleURL = trim(NEW.titleURL);
 
 	END;
 |
-delimiter ;
+DELIMITER ;
 
 
 # http://www.mysqludf.org/lib_mysqludf_preg/
 # \s isn't working
 INSERT INTO entryurls (entryId, titleURL, isActive, createdAt)
-SELECT id, 
+SELECT id,
 convert(PREG_REPLACE('/[ \t\.]+/', '-',
 	PREG_REPLACE('/[^A-Za-z0-9 \t\.]+/', '' , trim(entries.title))
 )

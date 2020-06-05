@@ -7,13 +7,13 @@ CREATE TABLE flickrcollections
 (
 	id VARCHAR(50) NOT NULL DEFAULT '' PRIMARY KEY,
 
-	`createdAt` datetime NULL DEFAULT NULL,
-	`createdBy` mediumint unsigned NULL DEFAULT NULL,
-	`updatedAt` datetime NULL DEFAULT NULL,
-	`updatedBy` mediumint unsigned NULL DEFAULT NULL,
+	`createdAt` DATETIME NULL DEFAULT NULL,
+	`createdBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`updatedAt` DATETIME NULL DEFAULT NULL,
+	`updatedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
 	`deletedAt` DATETIME NULL DEFAULT NULL,
-	`deletedBy` mediumint unsigned NULL DEFAULT NULL,
-	`timestampAt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
-	
-) comment = "Flickr Collections for this Blog"
-  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+	`deletedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`timestampAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+) COMMENT = "Flickr Collections for this Blog"
+  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;

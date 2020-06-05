@@ -9,14 +9,12 @@ create table flickroauth
 	`oauthToken` VARCHAR(50) NOT NULL,
 	`oauthTokenSecret` VARCHAR(20) NOT NULL,
 
-	`createdAt` datetime NULL DEFAULT now(),
-	`createdBy` mediumint unsigned NULL DEFAULT NULL,
-	`updatedAt` datetime NULL DEFAULT NULL,
-	`updatedBy` mediumint unsigned NULL DEFAULT NULL,
+	`createdAt` DATETIME NULL DEFAULT now(),
+	`createdBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`updatedAt` DATETIME NULL DEFAULT NULL,
+	`updatedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
 	`deletedAt` DATETIME NULL DEFAULT NULL,
-	`deletedBy` mediumint unsigned NULL DEFAULT NULL,
-	`timestampAt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
+	`deletedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`timestampAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )	comment = "FLickr oAuth Access Tokens for API access"
-	ENGINE=INNODB DEFAULT CHARSET=UTF8;
-
-	-- 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+	ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;

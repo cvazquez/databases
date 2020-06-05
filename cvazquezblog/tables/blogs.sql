@@ -2,32 +2,32 @@
 
 CREATE DATABASE cvazquezblog CHARACTER SET utf8 COLLATE 'utf8_general_ci;
 
-CREATE TABLE cvazquezblog.`countries` (
+CREATE TABLE IF NOT EXISTS cvazquezblog.`countries` (
 	`id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	
+
 	`name` VARCHAR(50) NOT NULL,
-	`abbreviation` VARCHAR(3) NOT NULL, 
-		
-	`createdAt` datetime NULL DEFAULT NULL,
-	`createdBy` mediumint unsigned NULL DEFAULT NULL,
-	`updatedAt` datetime NULL DEFAULT NULL,
-	`updatedBy` mediumint unsigned NULL DEFAULT NULL,
+	`abbreviation` VARCHAR(3) NOT NULL,
+
+	`createdAt` DATETIME NULL DEFAULT NULL,
+	`createdBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`updatedAt` DATETIME NULL DEFAULT NULL,
+	`updatedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
 	`deletedAt` DATETIME NULL DEFAULT NULL,
-	`deletedBy` mediumint unsigned NULL DEFAULT NULL,
-	`timestampAt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
-  
-) comment = "A list of countries"
-  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+	`deletedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`timestampAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+) COMMENT = "A list of countries"
+  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
 
 DROP TRIGGER IF EXISTS countries_bi;
 
-delimiter |
+DELIMITER |
 CREATE
     DEFINER = blog_trig_user@localhost
     TRIGGER countries_bi BEFORE INSERT
     ON countries FOR EACH ROW
-	
+
 	BEGIN
 
 	SET NEW.name = trim(NEW.name);
@@ -35,39 +35,39 @@ CREATE
 
 	END;
 |
-delimiter ;
+DELIMITER ;
 
 
-CREATE TABLE cvazquezblog.`states` (
+CREATE TABLE IF NOT EXISTS cvazquezblog.`states` (
 	`id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`countryId` SMALLINT UNSIGNED NOT NULL, 	
-	
+	`countryId` SMALLINT UNSIGNED NOT NULL,
+
 	`name` VARCHAR(50) NOT NULL,
-	`abbreviation` VARCHAR(3) NOT NULL, 
-		
-	`createdAt` datetime NULL DEFAULT NULL,
-	`createdBy` mediumint unsigned NULL DEFAULT NULL,
-	`updatedAt` datetime NULL DEFAULT NULL,
-	`updatedBy` mediumint unsigned NULL DEFAULT NULL,
+	`abbreviation` VARCHAR(3) NOT NULL,
+
+	`createdAt` DATETIME NULL DEFAULT NULL,
+	`createdBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`updatedAt` DATETIME NULL DEFAULT NULL,
+	`updatedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
 	`deletedAt` DATETIME NULL DEFAULT NULL,
-	`deletedBy` mediumint unsigned NULL DEFAULT NULL,
-	`timestampAt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	`deletedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`timestampAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	FOREIGN KEY (countryId) references countries(id)
-  
-) comment = "A list of states"
-  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+) COMMENT = "A list of states"
+  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
 -- http://weburge.com/build/states.php
 -- http://drupal.org/node/332575
 
 DROP TRIGGER IF EXISTS states_bi;
 
-delimiter |
+DELIMITER |
 CREATE
     DEFINER = blog_trig_user@localhost
     TRIGGER states_bi BEFORE INSERT
     ON states FOR EACH ROW
-	
+
 	BEGIN
 
 	SET NEW.name = trim(NEW.name);
@@ -75,47 +75,46 @@ CREATE
 
 	END;
 |
-delimiter ;
+DELIMITER ;
 
 
-CREATE TABLE cvazquezblog.`cities` (
+CREATE TABLE IF NOT EXISTS cvazquezblog.`cities` (
 	`id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`stateId` SMALLINT UNSIGNED NOT NULL, 	
-	
+	`stateId` SMALLINT UNSIGNED NOT NULL,
+
 	`name` VARCHAR(50) NOT NULL,
-		
-	`createdAt` datetime NULL DEFAULT NULL,
-	`createdBy` mediumint unsigned NULL DEFAULT NULL,
-	`updatedAt` datetime NULL DEFAULT NULL,
-	`updatedBy` mediumint unsigned NULL DEFAULT NULL,
+
+	`createdAt` DATETIME NULL DEFAULT NULL,
+	`createdBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`updatedAt` DATETIME NULL DEFAULT NULL,
+	`updatedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
 	`deletedAt` DATETIME NULL DEFAULT NULL,
-	`deletedBy` mediumint unsigned NULL DEFAULT NULL,
-	`timestampAt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-	
+	`deletedBy` MEDIUMINT UNSIGNED NULL DEFAULT NULL,
+	`timestampAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
 	FOREIGN KEY (stateId) references states(id),
-	
-	UNIQUE INDEX stateNameIdx (stateId, name)	
-  
-) comment = "A list of cities/state combinations"
-  ENGINE=INNODB DEFAULT CHARSET=UTF8;
-  
-  
+
+	UNIQUE INDEX stateNameIdx (stateId, name)
+
+) COMMENT = "A list of cities/state combinations"
+  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+
 DROP TRIGGER IF EXISTS cities_bi;
 
-delimiter |
+DELIMITER |
 CREATE
     DEFINER = blog_trig_user@localhost
     TRIGGER cities_bi BEFORE INSERT
     ON cities FOR EACH ROW
-	
+
 	BEGIN
 
 	SET NEW.name = trim(NEW.name);
 
 	END;
 |
-delimiter ;
-  
+DELIMITER ;
 
 
 
@@ -124,11 +123,12 @@ delimiter ;
 
 
 
-CREATE TABLE cf_client_data 
-(	
-	expires VARCHAR(64) NOT NULL, 
-	cfid VARCHAR(64) NOT NULL, 
-	name VARCHAR(255) NOT NULL, 
+
+CREATE TABLE cf_client_data
+(
+	expires VARCHAR(64) NOT NULL,
+	cfid VARCHAR(64) NOT NULL,
+	name VARCHAR(255) NOT NULL,
 	DATA TEXT NOT NULL
 );
 

@@ -1,4 +1,4 @@
-delimiter $$
+DELIMITER $$
 
 DROP FUNCTION IF EXISTS cvazquezblog.CutText$$
 

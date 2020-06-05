@@ -31,6 +31,6 @@ ORDER BY id;
 UPDATE flickrsetphotourls fspu
 INNER JOIN flickrsetphotos fsp ON fsp.id = fspu.flickrSetPhotoId AND CreateTitleURL(fsp.title) <> fspu.name
 SET fspu.isActive = 0;
-			
-			
+
+
 GRANT INSERT, UPDATE ON cvazquezblog.flickrsetphotourls TO railo@localhost;

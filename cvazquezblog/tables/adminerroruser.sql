@@ -3,7 +3,7 @@ CREATE TABLE `adminerroruser` (
 	`firstName` VARCHAR(50) NOT NULL,
 	`lastname` VARCHAR(50) NOT NULL,
 	`email` VARCHAR(150) NOT NULL,
-	
+
 	`createdAt` DATETIME NULL DEFAULT NULL,
 	`createdBy` MEDIUMINT(8) UNSIGNED NULL DEFAULT NULL,
 	`updatedAt` DATETIME NULL DEFAULT NULL,

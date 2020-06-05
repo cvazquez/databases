@@ -3,7 +3,7 @@ CREATE TABLE `adminrecaptcha` (
 	`publicKey` VARCHAR(50) NOT NULL,
 	`privateKey` VARCHAR(50) NOT NULL,
 
-	
+
 	`createdAt` DATETIME NULL DEFAULT NULL,
 	`createdBy` MEDIUMINT(8) UNSIGNED NULL DEFAULT NULL,
 	`updatedAt` DATETIME NULL DEFAULT NULL,

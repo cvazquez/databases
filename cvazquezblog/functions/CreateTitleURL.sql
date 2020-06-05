@@ -7,6 +7,6 @@ CREATE
 	USING UTF8)
 ;
 
-GRANT execute ON FUNCTION cvazquezblog.CreateTitleURL  TO 'blog_func_user'@'localhost';
-GRANT execute ON FUNCTION cvazquezblog.CreateTitleURL  TO 'blog_trig_user'@'localhost';
-GRANT execute ON FUNCTION cvazquezblog.CreateTitleURL  TO 'nodeuser'@'localhost';
+GRANT EXECUTE ON FUNCTION cvazquezblog.CreateTitleURL  TO 'blog_func_user'@'localhost';
+GRANT EXECUTE ON FUNCTION cvazquezblog.CreateTitleURL  TO 'blog_trig_user'@'localhost';
+GRANT EXECUTE ON FUNCTION cvazquezblog.CreateTitleURL  TO 'nodeuser'@'localhost';
