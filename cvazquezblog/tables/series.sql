@@ -48,8 +48,8 @@ CREATE
 
 	BEGIN
 
-	INSERT INTO seriesurls (seriesId, titleURL, isActive, createdAt, createdBy)
-	SELECT NEW.id, CreateTitleURL(NEW.title), 1, now(), NEW.createdBy;
+	INSERT INTO seriesurls (seriesId, nameURL, isActive, createdAt, createdBy)
+	SELECT NEW.id, CreateTitleURL(NEW.name), 1, now(), NEW.createdBy;
 
 	END;
 |
@@ -69,14 +69,14 @@ CREATE
 	DECLARE titleExists TINYINT DEFAULT 0;
 
 	/* Check if the title has been updated. */
-	IF (NEW.title <> OLD.title) THEN
+	IF (NEW.name <> OLD.name) THEN
 
 		/* Check if the updated title already exists from the past and re-active it */
 		SELECT count(*) INTO titleExists
 		FROM seriesurls
-		WHERE seriesId = OLD.id AND titleURL = NEW.title;
+		WHERE seriesId = OLD.id AND nameURL = NEW.name;
 
-		SET @updated_title = CreateTitleURL(NEW.title);
+		SET @updated_title = CreateTitleURL(NEW.name);
 
 		IF (titleExists > 0) THEN
 			/* The title existed in the past, so reactivate it and deactivate others for this entry id */
@@ -86,12 +86,12 @@ CREATE
 				updatedBy = NEW.updatedBy,
 				deletedAt = NULL,
 				deletedBy = NULL
-			WHERE seriesId = OLD.id AND titleURL = @updated_title AND isActive = 0;
+			WHERE seriesId = OLD.id AND nameURL = @updated_title AND isActive = 0;
 
 		ELSE
 			/* The title doesn't exist. Create it new */
-			INSERT IGNORE INTO seriesurls (seriesId, titleURL, isActive, createdAt, createdBy)
-			SELECT OLD.id, CreateTitleURL(NEW.title), 1, now(), NEW.createdBy;
+			INSERT IGNORE INTO seriesurls (seriesId, nameURL, isActive, createdAt, createdBy)
+			SELECT OLD.id, CreateTitleURL(NEW.name), 1, now(), NEW.createdBy;
 		END IF;
 
 		/* Deactivate the previous active title */
@@ -101,7 +101,7 @@ CREATE
 				updatedBy = NEW.updatedBy,
 				deletedAt = now(),
 				deletedBy = NEW.updatedBy
-			WHERE seriesId = OLD.id AND titleURL <> @updated_title AND isActive = 1;
+			WHERE seriesId = OLD.id AND nameURL <> @updated_title AND isActive = 1;
 	END IF;
 	END;
 |

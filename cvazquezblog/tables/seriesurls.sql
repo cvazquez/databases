@@ -36,7 +36,7 @@ CREATE
 |
 DELIMITER ;
 
-
+/* Shouldn't have to run this on newly inserted series
 INSERT INTO seriesurls (seriesId, nameURL, isActive, createdAt)
 SELECT	id,
 		CreateTitleURL(series.name),
@@ -45,6 +45,6 @@ SELECT	id,
 FROM series
 WHERE deletedAt IS NULL
 ORDER BY id;
-
+*/
 
 GRANT SELECT, UPDATE, INSERT, TRIGGER ON `cvazquezblog`.`seriesurls` TO 'blog_trig_user'@'localhost'
